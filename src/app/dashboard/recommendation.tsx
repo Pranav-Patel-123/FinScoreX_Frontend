@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../../components/ui/card";
-import { Clock, BarChart3, PieChart, TrendingUp, Info, ThumbsUp, AlertCircle, CheckCircle2 } from "lucide-react";
+import { Clock, ThumbsUp, CheckCircle2 } from "lucide-react";
 
 interface CreditScoreCardProps {
   score: number;
@@ -35,7 +35,7 @@ export default function CreditScoreCard({ score }: CreditScoreCardProps) {
   }
 
   return (
-    <Card>
+    <Card className="p-4 rounded-lg shadow-md bg-white">
       <CardHeader>
         <CardTitle>Credit Score Analysis</CardTitle>
         <CardDescription>Insights & recommendations to improve your CIBIL score</CardDescription>
@@ -62,7 +62,7 @@ export default function CreditScoreCard({ score }: CreditScoreCardProps) {
                 </div>
               </div>
               <p className="text-sm text-gray-500">{item.advice}</p>
-              <div className={`mt-2 rounded-md ${item.color.replace("text-", "bg-")}-50 p-3`}>
+              <div className={`mt-2 rounded-md bg-opacity-10 ${item.color.replace("text-", "bg-")} p-3`}>
                 <div className="flex items-start gap-2">
                   <CheckCircle2 className={`mt-0.5 h-4 w-4 ${item.color}`} />
                   <div className={`text-xs ${item.color.replace("text-", "text-")}-800`}>
