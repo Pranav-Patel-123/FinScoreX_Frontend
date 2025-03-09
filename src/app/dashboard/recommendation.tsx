@@ -1,4 +1,10 @@
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../../components/ui/card";
+import { 
+  Card, 
+  CardHeader, 
+  CardTitle, 
+  CardDescription, 
+  CardContent 
+} from "../../components/ui/card";
 import { Clock, ThumbsUp, CheckCircle2 } from "lucide-react";
 
 interface CreditScoreCardProps {
@@ -9,7 +15,7 @@ export default function CreditScoreCard({ score }: CreditScoreCardProps) {
   // Define score category & colors
   let category = "";
   let color = "";
-  let suggestions: any[] = [];
+  let suggestions: { title: string; impact: string; color: string; advice: string }[] = [];
 
   if (score <= 500) {
     category = "Low";
@@ -36,44 +42,46 @@ export default function CreditScoreCard({ score }: CreditScoreCardProps) {
 
   return (
     <Card className="p-4 rounded-lg shadow-md bg-white">
-      <CardHeader>
-        <CardTitle>Credit Score Analysis</CardTitle>
-        <CardDescription>Insights & recommendations to improve your CIBIL score</CardDescription>
+      <CardHeader className="p-4">
+        <CardTitle className="text-lg font-bold">Credit Score Analysis</CardTitle>
+        <CardDescription className="text-gray-500">
+          Insights & recommendations to improve your CIBIL score
+        </CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="space-y-6">
-          {/* Score Overview */}
-          <div className="flex justify-between">
-            <h2 className="text-lg font-semibold">Credit Score: <span className={`${color}`}>{category}</span></h2>
-            <span className={`text-sm font-medium ${color}`}>{score} / 900</span>
-          </div>
+      <CardContent className="space-y-6">
+        {/* Score Overview */}
+        <div className="flex justify-between">
+          <h2 className="text-lg font-semibold">
+            Credit Score: <span className={color}>{category}</span>
+          </h2>
+          <span className={`text-sm font-medium ${color}`}>{score} / 900</span>
+        </div>
 
-          {/* Dynamic Suggestions */}
-          {suggestions.map((item, index) => (
-            <div key={index} className="space-y-2">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Clock className="h-5 w-5 text-blue-600" />
-                  <h3 className="font-medium">{item.title}</h3>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className={`text-sm font-medium ${item.color}`}>{item.impact}</span>
-                  <ThumbsUp className={`h-4 w-4 ${item.color}`} />
-                </div>
+        {/* Dynamic Suggestions */}
+        {suggestions.map((item, index) => (
+          <div key={index} className="space-y-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Clock className="h-5 w-5 text-blue-600" />
+                <h3 className="font-medium">{item.title}</h3>
               </div>
-              <p className="text-sm text-gray-500">{item.advice}</p>
-              <div className={`mt-2 rounded-md bg-opacity-10 ${item.color.replace("text-", "bg-")} p-3`}>
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 className={`mt-0.5 h-4 w-4 ${item.color}`} />
-                  <div className={`text-xs ${item.color.replace("text-", "text-")}-800`}>
-                    <p className="font-medium">Suggested Action</p>
-                    <p>{item.advice}</p>
-                  </div>
+              <div className="flex items-center gap-2">
+                <span className={`text-sm font-medium ${item.color}`}>{item.impact}</span>
+                <ThumbsUp className={`h-4 w-4 ${item.color}`} />
+              </div>
+            </div>
+            <p className="text-sm text-gray-500">{item.advice}</p>
+            <div className={`mt-2 rounded-md ${item.color.replace("text-", "bg-")}-50 p-3`}>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className={`mt-0.5 h-4 w-4 ${item.color}`} />
+                <div className="text-xs">
+                  <p className="font-medium">Suggested Action</p>
+                  <p>{item.advice}</p>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </CardContent>
     </Card>
   );
