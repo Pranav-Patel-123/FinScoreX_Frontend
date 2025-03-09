@@ -1,9 +1,10 @@
 "use client";
 
-import { Users, Rocket, Target, Mail } from "lucide-react";
+import Image from "next/image";
+import { Users, Rocket, Target } from "lucide-react";
 import { Card } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
- 
+
 export default function About() {
   const team = [
     {
@@ -17,18 +18,6 @@ export default function About() {
       role: "CTO",
       image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&h=400&fit=crop",
       bio: "Tech innovator with a passion for building scalable solutions."
-    },
-    {
-      name: "Emily Rodriguez",
-      role: "Design Director",
-      image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&h=400&fit=crop",
-      bio: "Creative force behind our product design and user experience."
-    },
-    {
-      name: "Emily Rodriguez",
-      role: "Design Director",
-      image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&h=400&fit=crop",
-      bio: "Creative force behind our product design and user experience."
     },
     {
       name: "Emily Rodriguez",
@@ -53,16 +42,6 @@ export default function About() {
       icon: <Target className="h-8 w-8" />,
       title: "Excellence",
       description: "Committed to delivering the highest quality solutions and exceeding expectations."
-    },
-    {
-      icon: <Target className="h-8 w-8" />,
-      title: "Excellence",
-      description: "Committed to delivering the highest quality solutions and exceeding expectations."
-    },
-    {
-      icon: <Target className="h-8 w-8" />,
-      title: "Excellence",
-      description: "Committed to delivering the highest quality solutions and exceeding expectations."
     }
   ];
 
@@ -77,7 +56,7 @@ export default function About() {
               Transforming Ideas into Reality
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-up delay-100">
-              We're a passionate team of creators, innovators, and problem-solvers dedicated to building the future of technology.
+              We&apos;re a passionate team of creators, innovators, and problem-solvers dedicated to building the future of technology.
             </p>
           </div>
         </div>
@@ -106,9 +85,11 @@ export default function About() {
           <div className="grid md:grid-cols-3 gap-8">
             {team.map((member, index) => (
               <Card key={index} className="overflow-hidden hover:shadow-lg transition-all">
-                <img
+                <Image
                   src={member.image}
                   alt={member.name}
+                  width={400}
+                  height={400}
                   className="w-full h-64 object-cover"
                 />
                 <div className="p-6">
