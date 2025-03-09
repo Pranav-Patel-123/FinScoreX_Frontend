@@ -8,6 +8,7 @@ import { Progress } from "../../components/ui/progress"
 import { getRiskLevel } from "../../lib/utils"
 import CreditScoreCard from "./recommendation"
 import { motion } from "framer-motion"
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   AlertCircle,
