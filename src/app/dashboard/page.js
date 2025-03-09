@@ -1,11 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs"
+import { Button } from "../../components/ui/button"
+import { Progress } from "../../components/ui/progress"
+import { getRiskLevel } from "../../lib/utils"
+import CreditScoreCard from "./recommendation"
 import { motion } from "framer-motion"
+import { useSearchParams } from "next/navigation";
 import {
   AlertCircle,
   ArrowDown,
@@ -28,10 +31,20 @@ import {
 } from "lucide-react"
 
 export default function DashboardPage() {
-  const [cibilScore, setCibilScore] = useState(750)
-  const [riskLevel, setRiskLevel] = useState("Low")
+  
   const [refreshing, setRefreshing] = useState(false)
 
+  const searchParams = useSearchParams();
+    const scoreParam = searchParams.get("score");
+
+    // Ensure CIBIL score is a valid number
+    const cibilScore = scoreParam ? parseFloat(scoreParam) : null;
+
+    // Get the Risk Level Description & Color
+    const { level, color } = cibilScore !== null ? getRiskLevel(cibilScore) : { level: "N/A", color: "text-gray-500" };
+
+
+    
   const handleRefresh = () => {
     setRefreshing(true)
     setTimeout(() => {
@@ -135,35 +148,39 @@ export default function DashboardPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.2 }}
         >
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Risk Assessment</CardTitle>
-              <Shield className="h-4 w-4 text-gray-400" />
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-baseline justify-between">
-                <div className={`text-3xl font-bold ${getRiskColor(riskLevel)}`}>{riskLevel}</div>
-                <div className="flex items-center gap-1 text-sm text-green-600">
-                  <TrendingDown className="h-4 w-4" />
-                  <span>-5%</span>
-                </div>
-              </div>
-              <div className="mt-3 grid grid-cols-5 gap-1">
-                <div className="h-2 rounded-l-full bg-green-600"></div>
-                <div className="h-2 bg-emerald-500"></div>
-                <div className="h-2 bg-amber-500"></div>
-                <div className="h-2 bg-orange-500"></div>
-                <div className="h-2 rounded-r-full bg-red-600"></div>
-              </div>
-              <div className="mt-2 flex justify-between text-xs text-gray-500">
-                <span>Very Low</span>
-                <span>Low</span>
-                <span>Medium</span>
-                <span>High</span>
-                <span>Very High</span>
-              </div>
-            </CardContent>
-          </Card>
+           <Card>
+                    <CardHeader className="flex flex-row items-center justify-between pb-2">
+                        <CardTitle className="text-sm font-medium">Risk Assessment</CardTitle>
+                        <Shield className="h-4 w-4 text-gray-400" />
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex items-baseline justify-between">
+                            {/* ✅ Show Risk Level (Very Low, Low, etc.) instead of Score */}
+                            <div className={`text-3xl font-bold ${color}`}>
+                                {level}
+                            </div>
+                            <div className="flex items-center gap-1 text-sm text-green-600">
+                                <TrendingDown className="h-4 w-4" />
+                                <span>-5%</span>
+                            </div>
+                        </div>
+                        {/* Risk Level Indicator */}
+                        <div className="mt-3 grid grid-cols-5 gap-1">
+                            <div className="h-2 rounded-l-full bg-green-600"></div>
+                            <div className="h-2 bg-emerald-500"></div>
+                            <div className="h-2 bg-amber-500"></div>
+                            <div className="h-2 bg-orange-500"></div>
+                            <div className="h-2 rounded-r-full bg-red-600"></div>
+                        </div>
+                        <div className="mt-2 flex justify-between text-xs text-gray-500">
+                            <span>Very Low</span>
+                            <span>Low</span>
+                            <span>Medium</span>
+                            <span>High</span>
+                            <span>Very High</span>
+                        </div>
+                    </CardContent>
+                </Card>
         </motion.div>
 
         <motion.div
@@ -397,145 +414,7 @@ export default function DashboardPage() {
           </div>
         </TabsContent>
         <TabsContent value="factors" className="mt-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Key Score Factors</CardTitle>
-              <CardDescription>Detailed analysis of factors affecting your credit score</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-5 w-5 text-blue-600" />
-                      <h3 className="font-medium">Payment History</h3>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-green-600">Strong Positive Impact</span>
-                      <ThumbsUp className="h-4 w-4 text-green-600" />
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-500">
-                    Your business has maintained a consistent payment history with only occasional minor delays. This is
-                    a significant positive factor in your credit score.
-                  </p>
-                  <div className="mt-2 rounded-md bg-green-50 p-3">
-                    <div className="flex items-start gap-2">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 text-green-600" />
-                      <div className="text-xs text-green-800">
-                        <p className="font-medium">Strength: 85/100</p>
-                        <p>Only 2 late payments in the last 24 months, all less than 30 days late.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <BarChart3 className="h-5 w-5 text-blue-600" />
-                      <h3 className="font-medium">Credit Utilization</h3>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-emerald-600">Positive Impact</span>
-                      <ThumbsUp className="h-4 w-4 text-emerald-600" />
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-500">
-                    Your business is using approximately 30% of available credit, which is within the recommended range.
-                    Lower utilization could further improve your score.
-                  </p>
-                  <div className="mt-2 rounded-md bg-emerald-50 p-3">
-                    <div className="flex items-start gap-2">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-600" />
-                      <div className="text-xs text-emerald-800">
-                        <p className="font-medium">Strength: 70/100</p>
-                        <p>Current utilization: ₹15L out of ₹50L available credit (30%).</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <PieChart className="h-5 w-5 text-blue-600" />
-                      <h3 className="font-medium">Credit Mix</h3>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-amber-600">Moderate Impact</span>
-                      <ThumbsUp className="h-4 w-4 text-amber-600" />
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-500">
-                    Your business has a limited variety of credit types. A diverse mix of revolving credit, term loans,
-                    and trade credit would improve this factor.
-                  </p>
-                  <div className="mt-2 rounded-md bg-amber-50 p-3">
-                    <div className="flex items-start gap-2">
-                      <AlertCircle className="mt-0.5 h-4 w-4 text-amber-600" />
-                      <div className="text-xs text-amber-800">
-                        <p className="font-medium">Strength: 60/100</p>
-                        <p>Current mix: 2 term loans, 1 line of credit. Consider adding trade credit relationships.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <TrendingUp className="h-5 w-5 text-blue-600" />
-                      <h3 className="font-medium">Business Growth</h3>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-green-600">Strong Positive Impact</span>
-                      <ThumbsUp className="h-4 w-4 text-green-600" />
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-500">
-                    Your business has shown consistent growth over the past 24 months, which significantly enhances your
-                    creditworthiness.
-                  </p>
-                  <div className="mt-2 rounded-md bg-green-50 p-3">
-                    <div className="flex items-start gap-2">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 text-green-600" />
-                      <div className="text-xs text-green-800">
-                        <p className="font-medium">Strength: 90/100</p>
-                        <p>Year-over-year revenue growth of 22%, with stable profit margins.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Info className="h-5 w-5 text-blue-600" />
-                      <h3 className="font-medium">GST Compliance</h3>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-emerald-600">Positive Impact</span>
-                      <ThumbsUp className="h-4 w-4 text-emerald-600" />
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-500">
-                    Your business has maintained good GST filing compliance with only occasional delays, positively
-                    affecting your credit assessment.
-                  </p>
-                  <div className="mt-2 rounded-md bg-emerald-50 p-3">
-                    <div className="flex items-start gap-2">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-600" />
-                      <div className="text-xs text-emerald-800">
-                        <p className="font-medium">Strength: 75/100</p>
-                        <p>22 out of 24 GST filings were on time in the past 2 years.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+        <CreditScoreCard score={scoreParam} />
         </TabsContent>
         <TabsContent value="history" className="mt-6">
           <Card>

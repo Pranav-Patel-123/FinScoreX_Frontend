@@ -47,7 +47,7 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/features/api-integration" className="text-gray-500 hover:text-blue-600">
+              <Link href="/api-integration" className="text-gray-500 hover:text-blue-600">
                 API Integration
               </Link>
             </li>

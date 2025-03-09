@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -26,7 +26,7 @@ export default function Header() {
           >
             <div className="flex items-center">
               <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600"></div>
-              <span className="ml-2 text-xl font-bold">FinScore</span>
+              <span className="ml-2 text-xl font-bold">FinScoreX</span>
             </div>
           </motion.div>
         </Link>
@@ -67,7 +67,7 @@ export default function Header() {
                     Risk Assessment
                   </Link>
                   <Link
-                    href="/features/api-integration"
+                    href="/api-integration"
                     className="block rounded-md px-3 py-2 text-sm hover:bg-gray-100"
                   >
                     API Integration
@@ -76,12 +76,7 @@ export default function Header() {
               )}
             </AnimatePresence>
           </div>
-          <Link
-            href="/pricing"
-            className="text-sm font-medium hover:text-blue-600 transition-colors"
-          >
-            Pricing
-          </Link>
+          
           <Link
             href="/about"
             className="text-sm font-medium hover:text-blue-600 transition-colors"
@@ -96,14 +91,14 @@ export default function Header() {
           </Link>
         </nav>
         <div className="hidden md:flex gap-4">
-          <Link href="/login">
+          <Link href="/existingCompany">
             <Button variant="outline" className="h-9">
-              Log In
+              Existing Company
             </Button>
           </Link>
           <Link href="/onboarding">
             <Button className="h-9 bg-blue-600 hover:bg-blue-700">
-              Get Started
+              Check CIBIL
             </Button>
           </Link>
         </div>
@@ -165,7 +160,7 @@ export default function Header() {
                       Risk Assessment
                     </Link>
                     <Link
-                      href="/features/api-integration"
+                      href="/api-integration"
                       className="text-sm"
                       onClick={toggleMenu}
                     >
