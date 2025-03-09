@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Button } from "../components/ui/button";
 import { ArrowRight, BarChart3, Shield, Zap } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
+
 
 export default function Home() {
   return (
@@ -37,7 +39,7 @@ export default function Home() {
                 </div>
               </div>
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="flex items-center justify-center">
-                <img
+                <Image 
                   alt="Credit Score Dashboard"
                   className="mx-auto aspect-video rounded-xl object-cover object-center sm:w-full"
                   src="/credit-score-2.png"
