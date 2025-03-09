@@ -226,7 +226,7 @@ const copyToClipboard = (text, id) => {
                     <p className="text-sm font-medium">Required Parameters:</p>
                     <ul className="ml-6 list-disc space-y-1 text-sm text-gray-500">
                       <li>business_id: Unique identifier for the business</li>
-                      <li>time_period: Period for analysis (e.g., "1y", "2y", "5y")</li>
+                      <li>time_period: Period for analysis (e.g., &quot;1y&quot;, &quot;2y&quot;, &quot;5y&quot;)</li>
                     </ul>
                   </div>
                 </div>
@@ -730,4 +730,3 @@ except Exception as e:
     </div>
   )
 }
-
