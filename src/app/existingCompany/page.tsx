@@ -36,7 +36,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${backendUrl}/cibil`);
+        const response = await fetch(`${backendUrl}/cibil/`);
         if (!response.ok) throw new Error("Failed to fetch data");
 
         const data: APIResponse = await response.json();
