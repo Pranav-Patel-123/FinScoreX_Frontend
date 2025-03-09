@@ -52,7 +52,7 @@ const BusinessDataForm = () => {
         setResponseMessage("");
 
         try {
-            const response = await fetch(`${backendUrl}/calculate`, {
+            const response = await fetch(`${backendUrl}/calculate/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
