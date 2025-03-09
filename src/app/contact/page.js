@@ -7,9 +7,7 @@ import { Input } from "../../components/ui/input";
 import { Textarea } from "../../components/ui/textarea";
 import { Button } from "../../components/ui/button";
 
-
 export default function Contact() {
-  // const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,10 +17,7 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "We'll get back to you as soon as possible.",
-    });
+    alert("Message Sent! We will get back to you soon.");
     setFormData({ name: "", email: "", subject: "", message: "" });
   };
 
@@ -80,9 +75,7 @@ export default function Contact() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium">
-                  Name
-                </label>
+                <label htmlFor="name" className="text-sm font-medium">Name</label>
                 <Input
                   id="name"
                   value={formData.name}
@@ -91,9 +84,7 @@ export default function Contact() {
                 />
               </div>
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium">
-                  Email
-                </label>
+                <label htmlFor="email" className="text-sm font-medium">Email</label>
                 <Input
                   id="email"
                   type="email"
@@ -104,9 +95,7 @@ export default function Contact() {
               </div>
             </div>
             <div className="space-y-2">
-              <label htmlFor="subject" className="text-sm font-medium">
-                Subject
-              </label>
+              <label htmlFor="subject" className="text-sm font-medium">Subject</label>
               <Input
                 id="subject"
                 value={formData.subject}
@@ -115,9 +104,7 @@ export default function Contact() {
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="message" className="text-sm font-medium">
-                Message
-              </label>
+              <label htmlFor="message" className="text-sm font-medium">Message</label>
               <Textarea
                 id="message"
                 rows={6}
@@ -141,6 +128,7 @@ export default function Contact() {
           className="w-full h-full border-0"
           allowFullScreen
           loading="lazy"
+          title="Google Maps Location"
         />
       </div>
     </div>
