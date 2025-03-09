@@ -526,7 +526,7 @@ export default function DashboardPage() {
                       <ThumbsUp className="h-4 w-4 text-green-600" />
                     </div>
                     <div className="space-y-1">
-                      <h3 className="font-medium text-green-800">What You're Doing Well</h3>
+                      <h3 className="font-medium text-green-800">What You&apos;re Doing Well</h3>
                       <ul className="ml-5 list-disc space-y-1 text-sm text-green-700">
                         <li>Consistent on-time payments for most obligations</li>
                         <li>Maintaining moderate credit utilization (30%)</li>
@@ -639,4 +639,3 @@ export default function DashboardPage() {
     </div>
   )
 }
-
