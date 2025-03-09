@@ -51,7 +51,7 @@ export default function Contact() {
           <div className="text-center">
             <h1 className="text-5xl font-bold tracking-tight mb-6">Get in Touch</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Have a question or want to work together? We'd love to hear from you.
+              Have a question or want to work together? We&apos;d love to hear from you.
             </p>
           </div>
         </div>
